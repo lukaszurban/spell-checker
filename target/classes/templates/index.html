@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Boot Thymeleaf Hello World Example</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+
+
+        <h2>
+           <!-- <span th:text="'Message: ' + ${message}"></span> -->
+        </h2>
+
+    <h3>Please enter a text to check language</h3>
+    <form action="/language" method="POST">
+
+        <textarea cols='60' rows='8' name="text" th:inline="text"></textarea>
+        <!--<input name="text" th:inline="text">[[${prev}]]</input>-->
+        <input type="submit" value="check language"/>
+    </form>
+
+    <h3>Please enter a text to check spelling</h3>
+    <form action="/check-spell" method="POST">
+
+        <textarea cols='60' rows='8' name="text" th:inline="text"></textarea>
+        <!--<input name="text" th:inline="text"></input> -->
+        <input type="submit" value="check spell"/>
+    </form>
+
+
+    <h3>Please enter a text to break text into single sentances</h3>
+    <form action="/break-sentences" method="POST">
+
+        <textarea cols='60' rows='8' name="text" th:inline="text"></textarea>
+        <input type="submit" value="break sentences"/>
+    </form>
+
+
+
+
+    <span th:if="${result}">
+        <p th:text="${result} + '!'" />
+    </span>
+
+    <span th:if="${spell}">
+        <p th:text="${spell} + '!'" />
+    </span>
+
+    <span th:if="${sentences}">
+        <p style="white-space: pre;" th:text="${sentences}" />
+        <br />
+    </span>
+
+</body>
+</html>
