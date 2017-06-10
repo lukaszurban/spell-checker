@@ -21,12 +21,14 @@
     </form>
 
     <h3>Please enter a text to check spelling</h3>
-    <form action="/check-spell" method="POST">
 
-        <textarea cols='60' rows='8' name="text" th:inline="text"></textarea>
+    <form action="/check-spell" method="POST">
+        <textarea cols='60' rows='8' name="text" th:inline="text">[[${prev}]]</textarea>
         <!--<input name="text" th:inline="text"></input> -->
         <input type="submit" value="check spell"/>
     </form>
+
+
 
 
     <h3>Please enter a text to break text into single sentances</h3>
@@ -40,11 +42,32 @@
 
 
     <span th:if="${result}">
-        <p th:text="${result} + '!'" />
+        <p th:text="${result}" />
+    </span>
+<!--
+    <span th:if="${errors}">
+        <p style="white-space: pre;" th:text="'Potential errors: ' + ${errors}" />
+    </span> -->
+        <span th:if="${errors}">
+        <table>
+            <tr>
+                <th>Potential errors:</th>
+                <th>Suggested correction:</th>
+            </tr>
+            <tr th:each="error : ${errors}">
+                <td th:text="${error}"></td>
+            </tr>
+            <tr th:each="suggestion : ${suggestions}">
+                <td th:text="${suggestion}"></td>
+            </tr>
+        </table>
+    </span>
+<span th:if="${suggestions}">
+        <p th:text="'Suggested correction: ' + ${suggestions}" />
     </span>
 
-    <span th:if="${spell}">
-        <p th:text="${spell} + '!'" />
+        <span th:if="${correctSentence}">
+        <p th:text="'Correct sentence: ' + ${correctSentence}" />
     </span>
 
     <span th:if="${sentences}">
@@ -52,5 +75,6 @@
         <br />
     </span>
 
+    <a href="/">Strona główna</a>
 </body>
 </html>

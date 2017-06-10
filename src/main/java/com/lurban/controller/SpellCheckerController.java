@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Łukasz on 2017-05-19.
@@ -27,9 +28,18 @@ public class SpellCheckerController {
 
     @RequestMapping(value = "/check-spell", method = RequestMethod.POST)
     public String checkSpell(Model model, @RequestParam(value = "text") String textToDetect) {
-        List<String> spell = spellCheckerService.checkSpell(textToDetect);
+        //List<String> errors = spellCheckerService.checkSpell(textToDetect);
+        Set<String> errors = spellCheckerService.checkSpell(textToDetect);
+        List<String> suggestions = spellCheckerService.getSuggestions(textToDetect);
+//        List<Integer> positions = spellCheckerService.getPositions(textToDetect);
+        List<String> correctSentence = spellCheckerService.getCorrectSentence(textToDetect);
+        //SpellCheckerService spell = spellCheckerService.returnValues();
 
-        model.addAttribute("spell",spell);
+        model.addAttribute("errors",errors);
+        model.addAttribute("suggestions",suggestions);
+        model.addAttribute("correctSentence", correctSentence);
+
+        //model.addAttribute("positions", positions);
         model.addAttribute("prev", textToDetect != null ? textToDetect : "");
         return "index";
     }

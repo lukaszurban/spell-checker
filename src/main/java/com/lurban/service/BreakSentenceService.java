@@ -13,7 +13,7 @@ import java.util.Locale;
 @Service
 public class BreakSentenceService {
 
-    private List<String> sentenceList = new ArrayList<>();
+    //private List<String> sentenceList = new ArrayList<>();
 
 
     public BreakIterator breakSentence(String textToBreak) {
@@ -41,6 +41,7 @@ public class BreakSentenceService {
 //    }
 
     public List<String> getSentence(BreakIterator bi, String source) {
+        List<String> sentenceList = new ArrayList<>();
         int counter = 0;
         bi.setText(source);
 
