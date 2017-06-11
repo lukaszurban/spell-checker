@@ -25,6 +25,9 @@ import java.util.stream.Collectors;
  * Created by Łukasz on 2017-04-08.
  */
 
+/**
+ * Class that provides language detection.
+ */
 @Service
 public class LanguageService {
 
@@ -43,17 +46,17 @@ public class LanguageService {
         this.englishDictionary = englishDictionary;
     }
 
-
-
+    /**
+     * Imports words from resource.
+     *
+     * @param filename Name of the file containing the words to be imported.
+     * @return set of words.
+     */
     private HashSet<String> importDictionary(String filename) throws URISyntaxException {
-        //final URI resourceUri = URI.create(filename);
         ClassLoader classLoader = getClass().getClassLoader();
         Path file = Paths.get(classLoader.getResource(filename).toURI());
 
         try {
-            //File file = ResourceUtils.getFile(resourceUri);
-            //String content = new String(Files.readAllBytes(file.toPath()));
-
             return Files.readAllLines(file).stream().collect(Collectors.toCollection(HashSet::new));
 
         } catch (java.io.IOException e) {
@@ -62,6 +65,11 @@ public class LanguageService {
 
     }
 
+    /**
+     * Sets dictionaries.
+     *
+     * @throws URISyntaxException
+     */
     @PostConstruct
     public void loadDictionaries() throws URISyntaxException {
         polishDictionary.setDictionary(importDictionary(PL_DICTIONARY));
@@ -69,6 +77,13 @@ public class LanguageService {
 
     }
 
+    /**
+     * Language detection in given text.
+     * Support polish language and english language at the moment.
+     *
+     * @param textToDetect Text that will be checked.
+     * @return detected language.
+     */
     public String detectLanguage(String textToDetect) {
         int polishCounter = 0, englishCounter = 0;
 
@@ -76,26 +91,28 @@ public class LanguageService {
         List<String> text = Arrays.asList(textToDetect.split("\\s* \\s*"));
         List<String> enteredText = text.stream().map(this::checkWord).collect(Collectors.toList());
 
-        //enteredText.forEach(e -> e.equals(PL));
+
         for (String word : enteredText) {
             if (word.equals(PL)) polishCounter++;
             else if (word.equals(EN)) englishCounter++;
         }
-        if(polishCounter>englishCounter) return "Polish language detected";
-        else if (englishCounter>polishCounter) return "English language detected";
+        if (polishCounter > englishCounter) return "Polish language detected";
+        else if (englishCounter > polishCounter) return "English language detected";
         else return "Not found";
     }
 
-
+    /**
+     * Language detection based on dictionaries.
+     *
+     * @param wordToCheck Word that will be checked.
+     * @return detected language of singe word.
+     */
     public String checkWord(String wordToCheck) {
-       if(englishDictionary.getDictionary().contains(wordToCheck)) return EN;
-       if(polishDictionary.getDictionary().contains(wordToCheck)) return PL;
+        if (englishDictionary.getDictionary().contains(wordToCheck)) return EN;
+        if (polishDictionary.getDictionary().contains(wordToCheck)) return PL;
 
-       return "Not found";
+        return "Not found";
     }
-
-
-
 
 
 }

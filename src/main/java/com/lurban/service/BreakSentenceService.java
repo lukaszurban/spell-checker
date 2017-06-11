@@ -10,36 +10,31 @@ import java.util.Locale;
 /**
  * Created by Łukasz on 2017-05-20.
  */
+
+/**
+ * Class that provides sentences seperation.
+ */
 @Service
 public class BreakSentenceService {
 
-    //private List<String> sentenceList = new ArrayList<>();
-
-
+    /**
+     * Seperation of whole text into single sentences.
+     *
+     * @param textToBreak Text that will be separated into sentences.
+     * @return instance for sentence breaks.
+     */
     public BreakIterator breakSentence(String textToBreak) {
         String paragraph = textToBreak;
         BreakIterator iterator = BreakIterator.getSentenceInstance(Locale.US);
-        //int sentences = count(iterator, paragraph);
         return iterator;
 
     }
-//    public static void main(String[] args) {
-//        String paragraph =
-//                "Line boundary analysis determines where a text " +
-//                        "string can be broken when line-wrapping. The " +
-//                        "mechanism correctly handles punctuation and " +
-//                        "hyphenated words. Actual line breaking needs to " +
-//                        "also consider the available line width and is " +
-//                        "handled by higher-level software. ";
-//
-//        BreakIterator iterator =
-//                BreakIterator.getSentenceInstance(Locale.US);
-//
-//
-//        int sentences = count(iterator, paragraph);
-//        System.out.println("Number of sentences: " + sentences);
-//    }
 
+    /**
+     * @param bi     Instance of BreakIterator class.
+     * @param source Text for scanning.
+     * @return single sentences.
+     */
     public List<String> getSentence(BreakIterator bi, String source) {
         List<String> sentenceList = new ArrayList<>();
         int counter = 0;
@@ -52,13 +47,11 @@ public class BreakSentenceService {
 
             if (lastIndex != BreakIterator.DONE) {
                 String sentence = source.substring(firstIndex, lastIndex);
-                sentenceList.add(sentence+('\n'));
-                //System.out.println("sentence = " + sentence);
+                sentenceList.add(sentence + ('\n'));
                 counter++;
             }
         }
 
-        //return counter;
         return sentenceList;
     }
 }

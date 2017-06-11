@@ -19,27 +19,26 @@ public class SpellCheckerController {
 
     @Autowired
     private SpellCheckerService spellCheckerService;
-/*
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String home(Model model) {
-        model.addAttribute("");
-        return "index";
-    }*/
 
+    /**
+     * Finds spelling errors in given text.
+     * Support polish language and english language at the moment.
+     *
+     * @param model        Founds spell errors.
+     * @param textToDetect Text in which the spell errors will be checked.
+     * @return home page and found spell errors.
+     */
     @RequestMapping(value = "/check-spell", method = RequestMethod.POST)
     public String checkSpell(Model model, @RequestParam(value = "text") String textToDetect) {
-        //List<String> errors = spellCheckerService.checkSpell(textToDetect);
+
         Set<String> errors = spellCheckerService.checkSpell(textToDetect);
         List<String> suggestions = spellCheckerService.getSuggestions(textToDetect);
-//        List<Integer> positions = spellCheckerService.getPositions(textToDetect);
         List<String> correctSentence = spellCheckerService.getCorrectSentence(textToDetect);
-        //SpellCheckerService spell = spellCheckerService.returnValues();
 
-        model.addAttribute("errors",errors);
-        model.addAttribute("suggestions",suggestions);
+        model.addAttribute("errors", errors);
+        model.addAttribute("suggestions", suggestions);
         model.addAttribute("correctSentence", correctSentence);
 
-        //model.addAttribute("positions", positions);
         model.addAttribute("prev", textToDetect != null ? textToDetect : "");
         return "index";
     }

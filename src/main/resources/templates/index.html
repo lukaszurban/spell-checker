@@ -3,40 +3,59 @@
 <head>
     <title>Spring Boot Thymeleaf Hello World Example</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"/>
+    <!--<link href="../static/css/style.css"  rel="stylesheet" />-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" href="/../static/css/style.css"></link>
+    <!--<link rel="stylesheet" type="text/css" href="/../static/css/style.css"></link>-->
+    <!--<link rel="stylesheet" type="text/css" th:href="@{/resources/style.css}"></link>-->
 </head>
 <body>
 
+<div class="container-fluid">
+    <div class="col-sm-4">
+        <div class="row">
+          <h4>Please enter a text to check language</h4>
+        </div>
+        <div class="row">
+            <form action="/language" method="POST">
+                <textarea cols='60' rows='8' name="text" th:inline="text"></textarea>
+                <div class="row">
+                    <input type="submit" value="check language"/>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="row">
+            <h4>Please enter a text to check spelling</h4>
+        </div>
+        <div class="row">
+            <form action="/check-spell" method="POST">
+                <textarea cols='60' rows='8' name="text" th:inline="text">[[${prev}]]</textarea>
+                <div class="row">
+                    <input type="submit" value="check spell"/>
+                </div>
+            </form>
+        </div>
+    </div>
 
 
-        <h2>
-           <!-- <span th:text="'Message: ' + ${message}"></span> -->
-        </h2>
-
-    <h3>Please enter a text to check language</h3>
-    <form action="/language" method="POST">
-
-        <textarea cols='60' rows='8' name="text" th:inline="text"></textarea>
-        <!--<input name="text" th:inline="text">[[${prev}]]</input>-->
-        <input type="submit" value="check language"/>
-    </form>
-
-    <h3>Please enter a text to check spelling</h3>
-
-    <form action="/check-spell" method="POST">
-        <textarea cols='60' rows='8' name="text" th:inline="text">[[${prev}]]</textarea>
-        <!--<input name="text" th:inline="text"></input> -->
-        <input type="submit" value="check spell"/>
-    </form>
 
 
-
-
-    <h3>Please enter a text to break text into single sentances</h3>
-    <form action="/break-sentences" method="POST">
-
-        <textarea cols='60' rows='8' name="text" th:inline="text"></textarea>
-        <input type="submit" value="break sentences"/>
-    </form>
+    <div class="col-sm-4">
+        <div class="row">
+            <h4>Please enter a text to break text into single sentances</h4>
+        </div>
+        <div class="row">
+            <form action="/break-sentences" method="POST">
+                <textarea cols='60' rows='8' name="text" th:inline="text"></textarea>
+                <div class="row">
+                    <input type="submit" value="break sentences"/>
+                </div>
+            </form>
+        </div>
+    </div>
 
 
 
@@ -48,33 +67,64 @@
     <span th:if="${errors}">
         <p style="white-space: pre;" th:text="'Potential errors: ' + ${errors}" />
     </span> -->
-        <span th:if="${errors}">
+        <div th:if="${errors}">
         <table>
             <tr>
                 <th>Potential errors:</th>
-                <th>Suggested correction:</th>
             </tr>
             <tr th:each="error : ${errors}">
                 <td th:text="${error}"></td>
+            </tr>
+
+        </table>
+
+        <table>
+            <tr>
+               <th>Suggested correction:</th>
             </tr>
             <tr th:each="suggestion : ${suggestions}">
                 <td th:text="${suggestion}"></td>
             </tr>
         </table>
-    </span>
-<span th:if="${suggestions}">
-        <p th:text="'Suggested correction: ' + ${suggestions}" />
-    </span>
 
-        <span th:if="${correctSentence}">
-        <p th:text="'Correct sentence: ' + ${correctSentence}" />
-    </span>
+        <table>
+            <tr>
+                <th>Correct sentences: </th>
+            </tr>
+            <tr th:each="correct : ${correctSentence}">
+                <td th:text="${correct}"></td>
+            </tr>
+        </table>
 
-    <span th:if="${sentences}">
-        <p style="white-space: pre;" th:text="${sentences}" />
-        <br />
-    </span>
+    </div>
 
-    <a href="/">Strona główna</a>
+    <div th:if="${sentences}">
+        <table>
+            <tr>
+                <th>Single sentences: </th>
+            </tr>
+            <tr th:each="sentence : ${sentences}">
+                <td th:text="${sentence}"></td>
+            </tr>
+        </table>
+    </div>
+        <!---->
+<!--<span th:if="${suggestions}">-->
+        <!--<p th:text="'Suggested correction: ' + ${suggestions}" />-->
+    <!--</span>-->
+
+        <!--<span th:if="${correctSentence}">-->
+        <!--<p th:text="'Correct sentence: ' + ${correctSentence}" />-->
+    <!--</span>-->
+
+
+
+    <!--<span th:if="${sentences}">-->
+        <!--<p style="white-space: pre;" th:text="${sentences}" />-->
+        <!--<br />-->
+    <!--</span>-->
+
+    <!--<a href="/">Strona główna</a>-->
+</div>
 </body>
 </html>

@@ -20,16 +20,21 @@ public class BreakSentenceController {
     @Autowired
     private BreakSentenceService breakSentenceService;
 
-
+    /**
+     * Separation given text into single sentences.
+     *
+     * @param model       Single sentences.
+     * @param textToBreak Text that will be separated into sentences.
+     * @return home page and single sentences.
+     */
     @RequestMapping(value = "break-sentences", method = RequestMethod.POST)
     public String breakSentences(Model model, @RequestParam(value = "text") String textToBreak) {
-        List<String> sentences = breakSentenceService.getSentence(breakSentenceService.breakSentence(textToBreak),textToBreak);
+        List<String> sentences = breakSentenceService.getSentence(breakSentenceService.breakSentence(textToBreak), textToBreak);
 
         model.addAttribute("sentences", sentences);
         model.addAttribute("prev", textToBreak != null ? textToBreak : "");
         return "index";
     }
-
 
 
 }
