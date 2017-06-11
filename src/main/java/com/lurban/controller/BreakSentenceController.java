@@ -32,7 +32,9 @@ public class BreakSentenceController {
         List<String> sentences = breakSentenceService.getSentence(breakSentenceService.breakSentence(textToBreak), textToBreak);
 
         model.addAttribute("sentences", sentences);
-        model.addAttribute("prev", textToBreak != null ? textToBreak : "");
+        model.addAttribute("prev2", textToBreak != null ? textToBreak : "");
+        model.addAttribute("prev", "");
+        model.addAttribute("prev3", "");
         return "index";
     }
 

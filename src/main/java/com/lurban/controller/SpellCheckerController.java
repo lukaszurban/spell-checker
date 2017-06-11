@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -33,13 +34,15 @@ public class SpellCheckerController {
 
         Set<String> errors = spellCheckerService.checkSpell(textToDetect);
         List<String> suggestions = spellCheckerService.getSuggestions(textToDetect);
-        List<String> correctSentence = spellCheckerService.getCorrectSentence(textToDetect);
+        String correctSentence = spellCheckerService.getCorrectSentence(textToDetect);
 
         model.addAttribute("errors", errors);
         model.addAttribute("suggestions", suggestions);
         model.addAttribute("correctSentence", correctSentence);
 
         model.addAttribute("prev", textToDetect != null ? textToDetect : "");
+        model.addAttribute("prev2", "");
+        model.addAttribute("prev3", "");
         return "index";
     }
 }

@@ -2,23 +2,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Spring Boot Thymeleaf Hello World Example</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"/>
-    <!--<link href="../static/css/style.css"  rel="stylesheet" />-->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" href="/../static/css/style.css"></link>
-    <!--<link rel="stylesheet" type="text/css" href="/../static/css/style.css"></link>-->
-    <!--<link rel="stylesheet" type="text/css" th:href="@{/resources/style.css}"></link>-->
 </head>
 <body>
 
 <div class="container-fluid">
     <div class="col-sm-4">
         <div class="row">
-          <h4>Please enter a text to check language</h4>
+            <h4>Please enter a text to check language</h4>
         </div>
         <div class="row">
             <form action="/language" method="POST">
-                <textarea cols='60' rows='8' name="text" th:inline="text"></textarea>
+                <textarea cols='60' rows='8' name="text" th:inline="text">[[${prev3}]]</textarea>
                 <div class="row">
                     <input type="submit" value="check language"/>
                 </div>
@@ -41,15 +39,13 @@
     </div>
 
 
-
-
     <div class="col-sm-4">
         <div class="row">
-            <h4>Please enter a text to break text into single sentances</h4>
+            <h4>Please enter a text to separate text into single sentances</h4>
         </div>
         <div class="row">
             <form action="/break-sentences" method="POST">
-                <textarea cols='60' rows='8' name="text" th:inline="text"></textarea>
+                <textarea cols='60' rows='8' name="text" th:inline="text">[[${prev2}]]</textarea>
                 <div class="row">
                     <input type="submit" value="break sentences"/>
                 </div>
@@ -58,16 +54,10 @@
     </div>
 
 
-
-
     <span th:if="${result}">
-        <p th:text="${result}" />
+        <p th:text="${result}"/>
     </span>
-<!--
-    <span th:if="${errors}">
-        <p style="white-space: pre;" th:text="'Potential errors: ' + ${errors}" />
-    </span> -->
-        <div th:if="${errors}">
+    <div th:if="${errors}">
         <table>
             <tr>
                 <th>Potential errors:</th>
@@ -80,7 +70,7 @@
 
         <table>
             <tr>
-               <th>Suggested correction:</th>
+                <th>Suggested correction:</th>
             </tr>
             <tr th:each="suggestion : ${suggestions}">
                 <td th:text="${suggestion}"></td>
@@ -89,7 +79,7 @@
 
         <table>
             <tr>
-                <th>Correct sentence: </th>
+                <th>Correct sentences:</th>
             </tr>
             <tr th:each="correct : ${correctSentence}">
                 <td th:text="${correct}"></td>
@@ -101,30 +91,13 @@
     <div th:if="${sentences}">
         <table>
             <tr>
-                <th>Single sentences: </th>
+                <th>Single sentences:</th>
             </tr>
             <tr th:each="sentence : ${sentences}">
                 <td th:text="${sentence}"></td>
             </tr>
         </table>
     </div>
-        <!---->
-<!--<span th:if="${suggestions}">-->
-        <!--<p th:text="'Suggested correction: ' + ${suggestions}" />-->
-    <!--</span>-->
-
-        <!--<span th:if="${correctSentence}">-->
-        <!--<p th:text="'Correct sentence: ' + ${correctSentence}" />-->
-    <!--</span>-->
-
-
-
-    <!--<span th:if="${sentences}">-->
-        <!--<p style="white-space: pre;" th:text="${sentences}" />-->
-        <!--<br />-->
-    <!--</span>-->
-
-    <!--<a href="/">Strona główna</a>-->
 </div>
 </body>
 </html>

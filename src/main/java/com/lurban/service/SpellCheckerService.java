@@ -100,7 +100,7 @@ public class SpellCheckerService {
      * @param textToCheck Text for which suggestions for corrected sentences will be returned.
      * @return corrected sentences.
      */
-    public List<String> getCorrectSentence(String textToCheck) {
+    public String getCorrectSentence(String textToCheck) {
         JLanguageTool langTool;
 
         if (languageService.detectLanguage(textToCheck) == "Polish language detected") {
@@ -127,7 +127,8 @@ public class SpellCheckerService {
                 correctText.add(correctSentence.toString());
             }
         }
-        return correctText;
+        return correctText.get(correctText.size()-1);
+
     }
 
 

@@ -27,6 +27,8 @@ public class LanguageController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(Model model) {
         model.addAttribute("prev", "");
+        model.addAttribute("prev2", "");
+        model.addAttribute("prev3", "");
         return "index";
     }
 
@@ -44,7 +46,9 @@ public class LanguageController {
         String result = languageService.detectLanguage(textToDetect);
 
         model.addAttribute("result", result);
-        model.addAttribute("prev", textToDetect != null ? textToDetect : "");
+        model.addAttribute("prev3", textToDetect != null ? textToDetect : "");
+        model.addAttribute("prev", "");
+        model.addAttribute("prev2", "");
         return "index";
     }
 
